@@ -10,7 +10,7 @@ Source0:	https://download.elastic.co/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz
 Source1:	kibana4
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-Requires:	elasticsearch
+Requires:	elasticsearch, daemonize
 Requires(pre): /usr/sbin/useradd, /usr/bin/getent
 Requires(postun): /usr/sbin/userdel
 
