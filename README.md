@@ -7,5 +7,6 @@ http://www.elastic.co/guide/en/elasticsearch/reference/current//setup-repositori
 
 Once enabled:
 $ sudo yum install elasticsearch daemonize
+
 $ sudo rpm -ivh kibana-4.0.2-1.el6.x86_64.rpm
 
