@@ -1,3 +1,4 @@
+%define debug_package %{nil}
 Name:		kibana
 Version:	4.0.2
 Release:	1%{?dist}
@@ -33,7 +34,7 @@ cp -aR config/ %{buildroot}/opt/kibana
 cp -aR node/ %{buildroot}/opt/kibana
 cp -aR plugins/ %{buildroot}/opt/kibana
 cp -aR src/ %{buildroot}/opt/kibana
-mkdir -p %{buildroot}/etc/rc.d/init.d
+mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 755 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/kibana.service
 
 
@@ -41,11 +42,10 @@ install -m 755 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/kibana.service
 rm -rf %{buildroot}
 
 %post
-chkconfig --add %{name}
+systemctl daemon-reload
 
 %preun
-service %{name} stop >/dev/null 2>&1
-chkconfig --del %{name}
+systemctl stop %{name} >/dev/null 2>&1
 
 %files
 %defattr(-,root,root,-)
@@ -55,6 +55,6 @@ chkconfig --del %{name}
 /opt/kibana/node
 /opt/kibana/plugins
 /opt/kibana/src
-%attr(755,root,root) /etc/rc.d/init.d/%{name}
+/usr/lib/systemd/system/kibana.service
 %dir /opt/kibana/config
 %config /opt/kibana/config/kibana.yml
